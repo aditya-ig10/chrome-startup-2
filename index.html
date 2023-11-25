@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ephesis&family=Lato:ital,wght@0,400;1,100&family=Varela+Round&family=Vina+Sans&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ephesis&family=Lato:ital,wght@0,400;1,100&family=Vina+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,100&family=Vina+Sans&display=swap" rel="stylesheet">
+
+    <title>Chrome Startup Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1614850523011-8f49ffc73908?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Z3JhZGllbnQlMjBibHVlfGVufDB8fDB8fHww') no-repeat center center fixed;
+            background-size: 100%;
+            filter: brightness(1) blur(1.0px);
+            z-index: -1;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        .search-bar {
+            position: relative;
+            width: 550px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-bar input {
+            width: calc(70% - 30px);
+            padding: 15px 20px;
+            font-size: 18px;
+            border: 1px solid #dddddd33;
+            border-radius: 5px 5px 5px 25px;
+            outline: none;
+            padding-left: 50px; 
+            position: relative;
+        }
+    
+        .search-bar input:hover,
+        .search-bar input:focus {
+            border-color: #00d9ff;
+            box-shadow: 0 0 25px rgb(0, 208, 255);
+        }
+
+        .search-bar button {
+            height: 100%;
+            width: 30%;
+            margin-left: 10px;
+            background-color: rgb(0, 123, 255);
+            color: #fff;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px 5px 25px 5px;
+        }
+
+        .search-bar input::before {
+            content: url('https://www.freeiconspng.com/thumbs/search-icon-png/search-icon-png-21.png') no-repeat center center fixed;
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+        }
+
+        .search-bar button:hover {
+            box-shadow: 0 0 25px rgb(0, 217, 255);
+        }
+
+        .hello-text {
+            font-family: 'Vina Sans', sans-serif;
+            font-size: 60px;
+            text-shadow: #fff;
+            stroke: black;
+            stroke-width: 2px;
+            margin-bottom: 25px;
+        }
+
+        .shortcuts {
+            display: flex;
+            justify-content: left;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .shortcut {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 150px;
+            height: 150px;
+            background-color: rgba(0, 0, 0, 0);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .shortcut img {
+            width: 80px;
+            height: 80px;
+        }
+
+        .shortcut-label {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .shortcut:hover {
+            transform: translateY(-30px) scale(1.2);
+        }
+
+        .time-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .date {
+            font-size: 85px;
+            font-style: bold;
+            font-family: 'Ephesis', cursive;
+            margin-bottom: 5px;
+        }
+
+        .time {
+            margin-bottom: 5px;
+            font-size: 24px;
+        }
+
+        .quotes-container {
+            position: absolute;
+            bottom: 15px;
+            font-family: 'Varela Round', sans-serif;
+            width: 100%;
+            text-align: center;
+            font-size: 16px;
+            color: #fff;
+            animation: fadeInOut 5s infinite;
+        }
+
+        .torch {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, rgba(158, 158, 158, 0.578), transparent);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            mix-blend-mode: screen;
+            animation: flicker 1s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <div class="background-container"></div>
+    <div class="container">
+        <div class="torch" id="torch"></div>
+        <div class="shortcuts">
+            <div id="git" class="shortcut" onclick="window.open('https://github.com/aditya-ig10', '_blank')">
+                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968866.png" alt="Github">
+                <div class="shortcut-label">GitHub</div>
+            </div>
+            <div id="yt" class="shortcut" onclick="window.open('https://www.youtube.com', '_blank')">
+                <img src="https://cdn-icons-png.flaticon.com/256/1384/1384060.png" alt="YouTube">
+                <div class="shortcut-label">YouTube</div>
+            </div>
+            <div id="gg" class="shortcut" onclick="openGoogle()">
+                <img src="https://cdn.iconscout.com/icon/free/png-512/free-google-152-189813.png?f=webp&w=512" alt="Google">
+                <div class="shortcut-label">Google</div>
+            </div>
+            <div id="cg" class="shortcut" onclick="window.open('https://chat.openai.com/', '_blank')">
+                <img src="https://static.vecteezy.com/system/resources/previews/022/227/365/non_2x/openai-chatgpt-logo-icon-free-png.png" alt="Chat GPT">
+                <div class="shortcut-label">Chat GPT</div>
+            </div>
+            <div id="srm" class="shortcut" onclick="openStudentPortal()">
+                <img src="https://upload.wikimedia.org/wikipedia/en/f/fe/Srmseal.png" alt="StudentPortal">
+                <div class="shortcut-label">Student Portal</div>
+            </div>
+            <div id="StackOverflow" class="shortcut" onclick="openSO()">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Stack_Overflow_icon.svg/768px-Stack_Overflow_icon.svg.png" alt="Example1">
+                <div class="shortcut-label">Stack Overflow</div>
+            </div>
+            <div id="Kaggle" class="shortcut" onclick="openKg()">
+                <img src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/189_Kaggle_logo_logos-512.png" alt="Example2">
+                <div class="shortcut-label">Kaggle</div>
+            </div>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Start Browsing the Web!" onkeypress="handleSearchInput(event)">
+            <button onclick="search()">Search</button>
+        </div>
+
+        <div class="hello-text">Hello Aditya!</div>
+
+        <div class="time-container">
+            <div class="date" id="weekday"></div>
+            <div class="time" id="time"></div>
+        </div>
+
+        <div class="quotes-container" id="quotesContainer">
+            <p id="quoteText">Sample quote.</p>
+        </div>
+    </div>
+
+    <script>
+        function search() {
+            var query = document.getElementById('searchInput').value;
+            window.open('https://www.google.com/search?q=' + encodeURIComponent(query), '_blank');
+        }
+
+        function handleSearchInput(event) {
+            if (event.key === "Enter") {
+                search();
+            }
+        }
+
+        function updateTime() {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+            var timeString = hours + ':' + (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+
+            var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            var weekday = weekdays[now.getDay()];
+
+            document.getElementById('time').innerText = timeString;
+            document.getElementById('weekday').innerText = weekday;
+        }
+
+        function activateShortcuts() {
+            var shortcuts = document.querySelectorAll('.shortcut');
+            shortcuts.forEach(function (shortcut) {
+                shortcut.classList.add('active');
+            });
+        }
+
+        function deactivateShortcuts() {
+            var shortcuts = document.querySelectorAll('.shortcut');
+            shortcuts.forEach(function (shortcut) {
+                shortcut.classList.remove('active');
+            });
+        }
+
+        setInterval(updateTime, 1000); // Update time every second
+        updateTime();
+
+        function openGoogle() {
+            window.open('https://www.google.com', '_blank');
+        }
+
+        function openStudentPortal() {
+            window.open('https://sp.srmist.edu.in/srmiststudentportal/students/loginManager/youLogin.jsp', '_blank');
+        }
+
+        function openSO() {
+            window.open('https://stackoverflow.com/', '_blank');
+        }
+
+        function openKg() {
+            window.open('https://www.kaggle.com/', '_blank');
+        }
+
+        var quotes = [
+            "Life is what happens when you're busy making other plans.",
+            "The only limit to our realization of tomorrow will be our doubts of today.",
+            "Believe you can and you're halfway there.",
+            "Strive not to be a success, but rather to be of value.",
+            "The only way to do great work is to love what you do.",
+            "It always seems impossible until it's done."
+        ];
+
+        function updateQuote() {
+            var randomIndex = Math.floor(Math.random() * quotes.length);
+            document.getElementById('quoteText').innerText = quotes[randomIndex];
+        }
+
+        setInterval(updateQuote, 10000);
+        updateQuote();
+
+        const torch = document.getElementById('torch');
+        document.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            torch.style.left = `${clientX}px`;
+            torch.style.top = `${clientY}px`;
+        });
+    </script>
+</body>
+
+</html>
